@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>亚马逊运营简历</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: #f0f2f5;
+            color: #1a1a2e;
+            line-height: 1.7;
+            padding: 20px;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+
+        /* 优化报告折叠区 */
+        .analysis-section {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+        .analysis-toggle {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border: none;
+            padding: 18px 28px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .analysis-toggle:hover { opacity: 0.95; }
+        .analysis-toggle .arrow { transition: transform 0.3s; font-size: 14px; }
+        .analysis-toggle.open .arrow { transform: rotate(180deg); }
+        .analysis-content { padding: 0 28px; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; }
+        .analysis-content.open { max-height: 5000px; padding: 24px 28px; }
+
+        /* 简历主体 */
+        .resume {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            padding: 0;
+            overflow: hidden;
+        }
+        .resume-header {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: #fff;
+            padding: 40px 36px 32px;
+        }
+        .resume-header h1 { font-size: 32px; margin-bottom: 6px; letter-spacing: 2px; }
+        .resume-header .subtitle { font-size: 16px; color: #b8c1ec; margin-bottom: 20px; }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px 24px;
+            font-size: 14px;
+            color: #d4d4e8;
+        }
+        .info-grid span { display: flex; align-items: center; gap: 6px; }
+        .info-grid .label { color: #8888aa; font-size: 12px; }
+
+        .resume-body { padding: 32px 36px; }
+
+        /* 亮点区 */
+        .highlights {
+            background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+            border-radius: 10px;
+            padding: 24px 28px;
+            margin-bottom: 32px;
+        }
+        .highlights h2 { font-size: 20px; margin-bottom: 6px; color: #302b63; }
+        .highlights .intro { font-size: 14px; color: #555; margin-bottom: 16px; }
+        .highlight-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+        .highlight-item .icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+        .highlight-item strong { color: #d63031; }
+
+        /* 通用标题 */
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #302b63;
+            margin: 32px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-title:first-child { margin-top: 0; }
+
+        /* 工作经历 */
+        .company-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 4px;
+        }
+        .company-name { font-size: 17px; font-weight: 700; color: #1a1a2e; }
+        .company-meta { font-size: 13px; color: #888; }
+        .job-title { font-size: 15px; color: #667eea; font-weight: 600; margin-bottom: 10px; }
+        .job-desc { font-size: 14px; color: #555; margin-bottom: 20px; }
+
+        .work-module { margin-bottom: 20px; }
+        .work-module h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #302b63;
+            margin-bottom: 8px;
+            padding-left: 12px;
+            border-left: 3px solid #667eea;
+        }
+        .work-module ul { list-style: none; padding: 0; }
+        .work-module li {
+            font-size: 14px;
+            color: #444;
+            padding: 6px 0 6px 20px;
+            position: relative;
+        }
+        .work-module li::before {
+            content: "▸";
+            position: absolute;
+            left: 4px;
+            color: #667eea;
+            font-weight: bold;
+        }
+        .work-module li strong { color: #d63031; }
+
+        /* 业绩表格 */
+        .perf-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+        .perf-table th {
+            background: #302b63;
+            color: #fff;
+            padding: 10px 14px;
+            text-align: center;
+            font-weight: 600;
+        }
+        .perf-table td {
+            padding: 10px 14px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        .perf-table tr:hover td { background: #f8f7ff; }
+        .perf-table .money { color: #d63031; font-weight: 700; }
+
+        /* 技能表 */
+        .skill-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+        .skill-table th {
+            background: #f0f2f5;
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 600;
+            color: #302b63;
+            width: 160px;
+        }
+        .skill-table td { padding: 10px 14px; border-bottom: 1px solid #eee; color: #444; }
+
+        /* 自我评价 */
+        .eval-list { list-style: none; padding: 0; }
+        .eval-list li {
+            font-size: 14px;
+            color: #444;
+            padding: 8px 0 8px 24px;
+            position: relative;
+        }
+        .eval-list li::before {
+            content: "✦";
+            position: absolute;
+            left: 4px;
+            color: #667eea;
+        }
+
+        /* 优化建议 */
+        .opt-item {
+            background: #f9f9fb;
+            border-left: 3px solid #667eea;
+            border-radius: 6px;
+            padding: 14px 18px;
+            margin-bottom: 14px;
+        }
+        .opt-item h4 { font-size: 15px; color: #302b63; margin-bottom: 6px; }
+        .opt-item .problem { color: #c0392b; font-size: 13px; margin-bottom: 4px; }
+        .opt-item .solution { color: #27ae60; font-size: 13px; }
+        .opt-item .stars { color: #f39c12; }
+
+        /* 推荐表 */
+        .rec-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+        .rec-table th { background: #f0f2f5; padding: 8px 12px; text-align: left; font-weight: 600; }
+        .rec-table td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+        .rec-table .pri-high { color: #d63031; font-weight: 600; }
+        .rec-table .pri-mid { color: #f39c12; font-weight: 600; }
+        .rec-table .pri-low { color: #27ae60; }
+
+        .note {
+            background: #fffbf0;
+            border: 1px solid #f0d9a0;
+            border-radius: 8px;
+            padding: 14px 18px;
+            font-size: 13px;
+            color: #8a6d3b;
+            margin-top: 20px;
+        }
+
+        @media print {
+            body { background: #fff; padding: 0; }
+            .analysis-section { display: none; }
+            .resume { box-shadow: none; }
+        }
+        @media (max-width: 640px) {
+            .resume-header { padding: 24px 20px; }
+            .resume-header h1 { font-size: 24px; }
+            .resume-body { padding: 20px; }
+            .highlights { padding: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- 优化分析报告（可折叠） -->
+        <div class="analysis-section">
+            <button class="analysis-toggle" onclick="toggleAnalysis(this)">
+                📋 优化分析报告（点击展开/收起）
+                <span class="arrow">▼</span>
+            </button>
+            <div class="analysis-content" id="analysisContent">
+                <h3 style="margin-bottom:12px;">1. 原简历优势</h3>
+                <table class="skill-table">
+                    <tr><th>优势项</th><td>数据意识较好 — 已有月销金额、ACOS降幅、转化率提升等具体数字</td></tr>
+                    <tr><th>模块完整</th><td>涵盖市场分析、产品管理、广告、库存四大核心板块</td></tr>
+                    <tr><th>业绩单独呈现</th><td>英国/美国站数据分开展示，条理清晰</td></tr>
+                </table>
+
+                <h3 style="margin:20px 0 12px;">2. 核心优化点</h3>
+
+                <div class="opt-item">
+                    <h4>⚡ 优化项 1：缺少职业标题与个人摘要 <span class="stars">★★★★★</span></h4>
+                    <p class="problem">❌ 简历开头没有一句话定位，HR在6-8秒筛选中无法快速判断匹配度。</p>
+                    <p class="solution">✅ 增加"求职意向 + 一句话价值主张"，直接告诉HR你是谁、能带来什么。</p>
+                </div>
+                <div class="opt-item">
+                    <h4>⚡ 优化项 2：业绩数据散落，缺少"冲击力开场" <span class="stars">★★★★★</span></h4>
+                    <p class="problem">❌ 最亮眼的数据（月销$89,900、ACOS 80%→20%）被埋在长段落中。</p>
+                    <p class="solution">✅ 提炼3-4个核心战绩放在简历最上方作为"亮点速览"。</p>
+                </div>
+                <div class="opt-item">
+                    <h4>⚡ 优化项 3：缺少行业关键词埋点 <span class="stars">★★★★☆</span></h4>
+                    <p class="problem">❌ 缺少ATS友好的关键词，如A9/A10算法、BSR、FBA、CPC、ROAS等。</p>
+                    <p class="solution">✅ 在描述中自然融入平台术语，提升机器筛选通过率。</p>
+                </div>
+                <div class="opt-item">
+                    <h4>⚡ 优化项 4：描述偏"职责罗列"而非"成果导向" <span class="stars">★★★★☆</span></h4>
+                    <p class="problem">❌ 多处使用"负责XX"的被动描述。</p>
+                    <p class="solution">✅ 统一使用STAR法则，以动词开头 + 量化结果收尾。</p>
+                </div>
+                <div class="opt-item">
+                    <h4>⚡ 优化项 5：个人总结过于泛化 <span class="stars">★★★★☆</span></h4>
+                    <p class="problem">❌ "责任心强""抗压能力强"是高频通用词，无法区分候选人。</p>
+                    <p class="solution">✅ 删除通用软技能，替换为可验证的能力标签和具体场景。</p>
+                </div>
+                <div class="opt-item">
+                    <h4>⚡ 优化项 6：技能展示单薄 <span class="stars">★★★☆☆</span></h4>
+                    <p class="problem">❌ 仅写"AI工具运用""Office办公软件"过于笼统。</p>
+                    <p class="solution">✅ 按选品/广告/数据分析/办公效率分类展示。</p>
+                </div>
+                <div class="opt-item">
+                    <h4>⚡ 优化项 7：缺少利润和ROI视角 <span class="stars">★★★☆☆</span></h4>
+                    <p class="problem">❌ 英国站有利润率32%，但美国站缺少利润率数据。</p>
+                    <p class="solution">✅ 补充年度总营收、整体利润率区间。</p>
+                </div>
+                <div class="opt-item">
+                    <h4>⚡ 优化项 8：增加合规与风险管理亮点 <span class="stars">★★★☆☆</span></h4>
+                    <p class="problem">❌ 2025-2026年亚马逊运营岗对合规经验的重视度显著提升，原简历未体现。</p>
+                    <p class="solution">✅ 补充账号健康维护、零违规记录等内容。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 正式简历 -->
+        <div class="resume">
+            <div class="resume-header">
+                <h1>个人简历</h1>
+                <div class="subtitle">亚马逊运营 · 北美站/欧洲站 · 厨房用品/宠物用品/儿童玩具品类</div>
+                <div class="info-grid">
+                    <span><span class="label">姓名</span> [你的姓名]</span>
+                    <span><span class="label">工作年限</span> 1.5 年</span>
+                    <span><span class="label">所在城市</span> 深圳</span>
+                    <span><span class="label">学历</span> 本科 · 中大南方学院 · 人力资源管理</span>
+                    <span><span class="label">英语</span> CET-6</span>
+                    <span><span class="label">联系方式</span> XXX-XXXX-XXXX &nbsp;|&nbsp; xxx@xxx.com</span>
+                </div>
+            </div>
+
+            <div class="resume-body">
+
+                <!-- 核心亮点 -->
+                <div class="highlights">
+                    <h2>🏆 核心亮点</h2>
+                    <p class="intro">1.5年亚马逊多站点运营经验，独立管理12条链接，覆盖美国站（10条）及英国站（2条）</p>
+                    <div class="highlight-item">
+                        <span class="icon">🔥</span>
+                        <div><strong>爆款打造</strong>：新品通过"低价破零 + Vine评论 + 精准广告"组合策略，3个月内月销突破 <strong>$89,900</strong>，跻身小类目 <strong>BSR Top 50</strong></div>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="icon">📈</span>
+                        <div><strong>广告优化</strong>：SP/SB广告体系化运营，核心广告活动 ACOS 从 <strong>80% 降至 20%</strong>，广告投资回报率提升 <strong>4倍</strong></div>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="icon">🎯</span>
+                        <div><strong>转化提升</strong>：通过A/B测试驱动的Listing优化，整体转化率 <strong>1个月内提升30%</strong></div>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="icon">💰</span>
+                        <div><strong>营收贡献</strong>：美国站旺季月销 <strong>$280,000+</strong>，英国站旺季月销 <strong>£30,000+</strong>，英国站利润率稳定 <strong>32%</strong></div>
+                    </div>
+                </div>
+
+                <!-- 工作经历 -->
+                <div class="section-title">💼 工作经历</div>
+                <div class="company-header">
+                    <span class="company-name">深圳彩旗数码科技有限公司</span>
+                    <span class="company-meta">2024.09 - 2026.03 · 深圳</span>
+                </div>
+                <div class="job-title">亚马逊运营</div>
+                <p class="job-desc">独立负责美国站（10条链接）及英国站（2条链接）全周期运营，品类涵盖厨房用品、宠物用品及儿童玩具，客单价区间 $9.99-$31.99 / £9.99-£15.99。</p>
+
+                <div class="work-module">
+                    <h4>一、市场分析与选品调研</h4>
+                    <ul>
+                        <li>运用<strong>卖家精灵</strong>系统分析头部竞品销量、销售额、Review增长速率及新卖家涌入趋势，量化评估市场容量与竞争强度，为选品决策提供数据支撑</li>
+                        <li>抓取并拆解竞品标题、五点描述、Search Term及SP广告投放词，筛选高转化关键词，构建分层级关键词库（核心词/长尾词/场景词），应用于Listing文案编写与广告架构搭建</li>
+                    </ul>
+                </div>
+
+                <div class="work-module">
+                    <h4>二、Listing优化与转化率提升</h4>
+                    <ul>
+                        <li>从0到1完成产品Listing创建，覆盖<strong>标题优化、五点描述、A+页面、主图/副图/视频</strong>全要素</li>
+                        <li>主导A/B测试（主图点击率、标题关键词排列、视频素材），一个月内将Listing整体<strong>转化率提升30%</strong></li>
+                        <li>建立差评100%主动联系机制，通过售后沟通与产品改进，长期维持店铺评分<strong>4.2-4.5星</strong>，差评解决率超<strong>80%</strong></li>
+                    </ul>
+                </div>
+
+                <div class="work-module">
+                    <h4>三、广告投放与ROI优化</h4>
+                    <ul>
+                        <li>搭建并优化站内<strong>SP（Sponsored Products）/ SB（Sponsored Brands）</strong>广告体系，按匹配类型（自动/广泛/词组/精确）分层管理广告活动</li>
+                        <li>执行<strong>分时段竞价调整</strong>策略，结合搜索词报告持续否定无效流量，优化高转化关键词出价</li>
+                        <li>核心广告活动ACOS从<strong>80%降至20%</strong>，在维持单量稳定增长的前提下，广告投资回报率提升4倍</li>
+                        <li>定期输出广告数据分析报告，追踪关键词排名、点击率（CTR）及转化率（CVR）变化趋势</li>
+                    </ul>
+                </div>
+
+                <div class="work-module">
+                    <h4>四、爆款孵化与销量增长</h4>
+                    <ul>
+                        <li>制定新品推广全链路策略：<strong>低价快速破零 → Vine计划获取早期评论 → 精准广告加速曝光 → 自然排名提升</strong></li>
+                        <li>核心产品上市3个月内月销突破<strong>$89,900</strong>，自然搜索排名进入小类目<strong>BSR Top 50</strong></li>
+                        <li>灵活运用Coupon、Lightning Deal、Prime专享折扣等促销工具，配合旺季流量节奏实现销量峰值</li>
+                    </ul>
+                </div>
+
+                <div class="work-module">
+                    <h4>五、库存管理与供应链协调</h4>
+                    <ul>
+                        <li>结合历史销售数据与季节性趋势建立<strong>销售预测模型</strong>，制定精准补货计划，协调供应商交期</li>
+                        <li>采用<strong>海运+空运组合物流方案</strong>，平衡时效与成本，全年无长期滞销库存</li>
+                        <li>库存周转率维持<strong>8-10次/年</strong>，定期清理冗余库存，FBA仓储费控制在合理范围内</li>
+                    </ul>
+                </div>
+
+                <div class="work-module">
+                    <h4>六、账号健康与合规管理</h4>
+                    <ul>
+                        <li>持续监控账号健康指标（ODR、LSR、VTR），维持账号绩效达标，任职期间<strong>零违规、零封店</strong></li>
+                        <li>及时跟进亚马逊政策更新（标题规范、A+内容规则、广告政策变化），确保运营合规</li>
+                    </ul>
+                </div>
+
+                <!-- 关键业绩 -->
+                <div class="section-title">📊 关键业绩总览</div>
+                <table class="perf-table">
+                    <thead>
+                        <tr>
+                            <th>站点</th>
+                            <th>链接数</th>
+                            <th>客单价</th>
+                            <th>旺季月销</th>
+                            <th>淡季月销</th>
+                            <th>利润率</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🇺🇸 美国站</td>
+                            <td>10条</td>
+                            <td>$9.99-$31.99</td>
+                            <td class="money">$280,000</td>
+                            <td>$80,000</td>
+                            <td>—</td>
+                        </tr>
+                        <tr>
+                            <td>🇬🇧 英国站</td>
+                            <td>2条</td>
+                            <td>£9.99-£15.99</td>
+                            <td class="money">£30,000</td>
+                            <td>£10,000</td>
+                            <td class="money">32%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- 教育背景 -->
+                <div class="section-title">🎓 教育背景</div>
+                <div class="company-header">
+                    <span class="company-name">中大南方学院（广州南方学院）</span>
+                    <span class="company-meta">2020.09 - 2024.06</span>
+                </div>
+                <p class="job-desc">公共管理学院 · 人力资源管理 · 本科</p>
+
+                <!-- 专业技能 -->
+                <div class="section-title">🛠️ 专业技能</div>
+                <table class="skill-table">
+                    <tr><th>选品与市场分析</th><td>卖家精灵、Jungle Scout、Helium 10（市场容量分析、竞品追踪、关键词挖掘）</td></tr>
+                    <tr><th>广告投放</th><td>Amazon Advertising Console（SP/SB/SD广告搭建、关键词竞价、否定投放、广告报表分析）</td></tr>
+                    <tr><th>数据分析</th><td>Excel数据透视表、亚马逊业务报告（Business Report）、广告搜索词报告</td></tr>
+                    <tr><th>AI与效率工具</th><td>ChatGPT/Claude（文案撰写辅助、数据分析）、Canva（图片设计）</td></tr>
+                    <tr><th>办公协作</th><td>熟练使用 Word、Excel、PPT、Google Sheets</td></tr>
+                    <tr><th>语言能力</th><td>英语 CET-6（具备英文Listing撰写与客户邮件沟通能力）</td></tr>
+                </table>
+
+                <!-- 自我评价 -->
+                <div class="section-title">💡 自我评价</div>
+                <ul class="eval-list">
+                    <li><strong>数据驱动型运营思维</strong>：习惯通过数据分析（销售报告、广告报告、竞品数据）指导运营决策，而非凭经验主观判断</li>
+                    <li><strong>全链路运营能力</strong>：具备从选品调研、Listing搭建、广告投放到库存管理的完整运营闭环经验</li>
+                    <li><strong>快速学习与迭代</strong>：持续关注亚马逊A10算法更新、Rufus AI搜索趋势等平台变化，及时调整运营策略</li>
+                    <li><strong>目标导向</strong>：以GMV增长和利润率为核心KPI，致力于在跨境电商领域持续深耕</li>
+                </ul>
+
+                <!-- 推荐优化 -->
+                <div class="section-title">📝 推荐进一步优化项</div>
+                <table class="rec-table">
+                    <thead>
+                        <tr><th>序号</th><th>推荐项</th><th>说明</th><th>优先级</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td><strong>补充美国站利润率数据</strong></td><td>利润率是运营能力的直接证明，如有数据建议补充</td><td class="pri-high">高</td></tr>
+                        <tr><td>2</td><td><strong>补充年度总GMV</strong></td><td>如"任职期间累计GMV超$XXX万"，一个总数字更有冲击力</td><td class="pri-high">高</td></tr>
+                        <tr><td>3</td><td><strong>添加项目经验模块</strong></td><td>选1-2个代表性链接，以STAR法则展开从0到1的完整过程</td><td class="pri-mid">中</td></tr>
+                        <tr><td>4</td><td><strong>补充SD广告经验</strong></td><td>Sponsored Display广告是2025-2026年的趋势，如有经验可补充</td><td class="pri-mid">中</td></tr>
+                        <tr><td>5</td><td><strong>增加多站点拓展经验</strong></td><td>如有参与日本站、德国站等拓展，可作为亮点</td><td class="pri-mid">中</td></tr>
+                        <tr><td>6</td><td><strong>补充选品工具使用经验</strong></td><td>如用过Jungle Scout、Helium 10等工具，请据实修改技能栏</td><td class="pri-mid">中</td></tr>
+                        <tr><td>7</td><td><strong>添加自学/认证</strong></td><td>如有亚马逊官方认证（Amazon Advertising Certification）可加分</td><td class="pri-low">低</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="note">
+                    <strong>📌 使用说明：</strong>请根据实际情况调整标记为"—"的数据项，将 [你的姓名]、联系方式等占位符替换为真实信息。技能栏中的工具请据实保留或删除（如未使用过 Jungle Scout 可移除）。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAnalysis(btn) {
+            const content = document.getElementById('analysisContent');
+            btn.classList.toggle('open');
+            content.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
